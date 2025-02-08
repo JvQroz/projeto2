@@ -86,8 +86,8 @@ document.getElementById("altura").addEventListener("input", function () {
 });
 
 document.getElementById("peso").addEventListener("input", function () {
-    if (this.value.length > 5) {
-        this.value = this.value.substring(0, 5); 
+    if (this.value.length > 6) {
+        this.value = this.value.substring(0, 6); 
     }
 });
 
