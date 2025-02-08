@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora</title>
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+
+<body class="corpo">
+    <header id="navegar">
+        <nav class="nav">
+            <div class="inicio"><a href="https://jvqroz.github.io/"><h2>Portfólio</h2></a></div>
+            <div class="nome"><a href="./"><h1><span>&lt;</span>J.V DEV<span>/&gt;</span></h1></a></div>
+        </nav>
+    </header>
+    <main>
+        <section class="sessao">
+            <div class="caixa-calc">
+                <h1>Calcule seu <span>IMC</span></h1>
+                <div class="dados">
+                    <div class="dado">
+                        <p>Sexo</p>
+                        <div class="sexo">
+                            <button class="btnsexo" id="masculino">Homem</button>
+                            <button class="btnsexo" id="feminino">Mulher</button>
+                        </div>
+                    </div>
+                    <div class="dado">
+                        <p>Insira sua idade</p>
+                        <input type="number" id="idade" max="120" placeholder="Ex: 21" required>
+                    </div>
+                    <div class="dado">
+                        <p>Insira sua altura</p>
+                        <input type="number" id="altura" max="999" placeholder="Ex: 1,73" required>
+                    </div>
+                    <div class="dado">
+                        <p>Insira seu peso</p>
+                        <input type="number" id="peso" max="9999" placeholder="Ex: 62,55kg" required>
+                    </div>
+
+                </div>
+                <button class="btn" onclick="calcImc()">Calcular</button>
+                <div class="resultado">
+                    <div id="resSexo"></div>
+                    <div id="error"></div>
+                    <div id="resImc"></div>
+                    <div id="resMsg"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="js.js"></script>
+</body>
+
+</html>
