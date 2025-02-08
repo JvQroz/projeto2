@@ -197,5 +197,27 @@ section{
     justify-content: space-between;
     border-radius: 5px;
     align-items: center;
+}
 
+@media (max-width: 750px){
+    .sexo{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .caixa-calc{
+        width: 70%;
+    }
+
+    .caixa-calc h1{
+        font-size: 25px;
+    }
+
+    .inicio h2{
+        font-size: 25px;
+        white-space: normal
+    }
+    .nome h1{
+        font-size: 30px;
+    }
 }
