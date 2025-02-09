@@ -6,7 +6,11 @@ const masculino = document.getElementById('masculino');
 const feminino = document.getElementById('feminino');
 
 function normalizeNumber(value) {
-    return parseFloat(value.replace(",", "."));
+    return parseFloat(value.replace(".", "").replace(",", "."));
+}
+
+function formatNumber(value) {
+    return value.toFixed(2).replace(".", ",");
 }
 
 function calcImc() {
@@ -15,19 +19,19 @@ function calcImc() {
     let idadeInput = document.getElementById('idade').value;
 
     let peso = normalizeNumber(pesoInput);
-    let altura = normalizeNumber(alturaInput);    
+    let altura = normalizeNumber(alturaInput);
     let idade = parseInt(idadeInput);
 
     if (peso <= 0 || altura <= 0 || isNaN(peso) || isNaN(altura) || isNaN(idade)) {
-        error.innerHTML = `<p>Preencha todos os campos!</p>`;
+        error.innerHTML = `<p>Preencha todos os campos corretamente!</p>`;
         msg.innerHTML = "";
         return;
     } else {
         error.innerHTML = "";
     }
 
-    let imc = peso / (altura * altura); 
-    let imcFormatado = imc.toFixed(2);
+    let imc = peso / (altura * altura);
+    let imcFormatado = formatNumber(imc);
 
     res.innerHTML = `<p>Seu IMC é <strong>${imcFormatado}</strong></p>`;
 
@@ -63,63 +67,56 @@ function calcImc() {
         resultado.innerHTML = "";
         return;
     }
+
     document.querySelectorAll("input").forEach(function(input) {
         input.addEventListener("input", function () {
-            this.value = this.value.replace(",", ".");
+            this.value = this.value.replace(".", ",");
         });
-    });    
+    });
 }
 
 masculino.addEventListener('click', function() {
     masculino.classList.toggle('ativo');
-    feminino.classList.remove('ativo'); 
-    mostrarResultado(); 
+    feminino.classList.remove('ativo');
 });
 
 feminino.addEventListener('click', function() {
     feminino.classList.toggle('ativo');
     masculino.classList.remove('ativo');
-    mostrarResultado(); 
 });
 
+// Limita o número de caracteres permitidos nos inputs
 document.getElementById("idade").addEventListener("input", function () {
-    if (this.value.length > 3) {
-        this.value = this.value.substring(0, 3); 
-    }
+    this.value = this.value.slice(0, 3);
 });
 
 document.getElementById("altura").addEventListener("input", function () {
-    if (this.value.length > 4) {
-        this.value = this.value.substring(0, 4); 
+    this.value = this.value.slice(0, 4);
+});
+
+document.getElementById("peso").addEventListener("input", function () {
+    this.value = this.value.slice(0, 6);
+});
+
+// Formata automaticamente a entrada de altura e peso para aceitar apenas números e vírgula
+document.getElementById("altura").addEventListener("input", function () {
+    let valor = this.value.replace(/\D/g, "");
+    if (valor.length >= 3) {
+        this.value = (valor.slice(0, -2) + "," + valor.slice(-2));
     }
 });
 
 document.getElementById("peso").addEventListener("input", function () {
-    if (this.value.length > 6) {
-        this.value = this.value.substring(0, 6); 
-    }
-});
-
-document.getElementById("altura").addEventListener("input", function () {
-    let valor = this.value.replace(/\D/g, ""); 
+    let valor = this.value.replace(/\D/g, "");
     if (valor.length >= 3) {
-        this.value = (valor.slice(0, -2) + "." + valor.slice(-2)).replace(",", "."); 
+        this.value = (valor.slice(0, -2) + "," + valor.slice(-2));
     }
 });
 
-document.getElementById("peso").addEventListener("input", function () {
-    let valor = this.value.replace(/\D/g, ""); 
-    if (valor.length >= 3) {
-        this.value = (valor.slice(0, -2) + "." + valor.slice(-2)).replace(",", "."); 
-    }
-});
-
+// Impede que o usuário digite caracteres inválidos nos inputs numéricos
 document.querySelectorAll("input[type=number]").forEach(function(input) {
     input.addEventListener("keydown", function(event) {
-        if (event.key === "ArrowUp" || event.key === "ArrowDown") {
-            event.preventDefault(); 
-        }
-        if (event.key === "e" || event.key === "E") {
+        if (event.key === "ArrowUp" || event.key === "ArrowDown" || event.key === "e" || event.key === "E") {
             event.preventDefault();
         }
     });
