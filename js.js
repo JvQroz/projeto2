@@ -5,13 +5,17 @@ const resultado = document.getElementById('resSexo');
 const masculino = document.getElementById('masculino');
 const feminino = document.getElementById('feminino');
 
+function normalizeNumber(value) {
+    return parseFloat(value.replace(",", "."));
+}
+
 function calcImc() {
     let pesoInput = document.getElementById('peso').value;
     let alturaInput = document.getElementById('altura').value;
     let idadeInput = document.getElementById('idade').value;
 
-    let peso = parseFloat(pesoInput);
-    let altura = parseFloat(alturaInput);
+    let peso = normalizeNumber(pesoInput);
+    let altura = normalizeNumber(alturaInput);    
     let idade = parseInt(idadeInput);
 
     if (peso <= 0 || altura <= 0 || isNaN(peso) || isNaN(altura) || isNaN(idade)) {
@@ -59,6 +63,11 @@ function calcImc() {
         resultado.innerHTML = "";
         return;
     }
+    document.querySelectorAll("input").forEach(function(input) {
+        input.addEventListener("input", function () {
+            this.value = this.value.replace(",", ".");
+        });
+    });    
 }
 
 masculino.addEventListener('click', function() {
